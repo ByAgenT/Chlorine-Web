@@ -1,0 +1,17 @@
+import styled from 'styled-components';
+
+const HeaderButton = styled.a`
+  color: white;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  text-decoration: none;
+
+  &:hover {
+    color: rgb(29, 185, 84);
+  }
+`;
+
+export default HeaderButton;

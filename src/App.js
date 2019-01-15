@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import HeaderView from './components/Header/HeaderView';
+import AppStyle from './globalStyle';
+import JoinPage from './views/JoinPage';
+import PartyPage from './views/PartyPage';
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <div>
+          <HeaderView/>
+          <Route path="/" exact component={PartyPage} />
+          <Route path="/join/" exact component={JoinPage} />
+          <AppStyle/>
+        </div>
+      </Router>
     );
   }
 }
