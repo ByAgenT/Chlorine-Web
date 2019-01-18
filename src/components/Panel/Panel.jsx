@@ -16,11 +16,13 @@ const PanelContainer = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  background: #111111
 `;
 
 const PanelBody = styled.div`
-  background: #111111;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 
   ${breakpoint('mobile')`
     min-height: 0;
