@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import PanelHeader from './PanelHeader';
-import PanelBody from './PanelBody';
+import breakpoint from 'styled-components-breakpoint';
 
 
 const Panel = (props) => (
@@ -18,6 +16,27 @@ const PanelContainer = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+`;
+
+const PanelBody = styled.div`
+  background: #111111;
+  flex-grow: 1;
+
+  ${breakpoint('mobile')`
+    min-height: 0;
+  `}
+
+  ${breakpoint('desktop')`
+    min-height: 7rem;
+  `}
+`;  
+
+const PanelHeader = styled.div`
+  background-color: #292929;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-bottom: 1px dashed #616467;
+  color: white;
 `;
 
 export default Panel;

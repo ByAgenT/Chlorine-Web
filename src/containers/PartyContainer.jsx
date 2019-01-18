@@ -12,6 +12,7 @@ const PartyContainer = styled.div`
 
   ${breakpoint('desktop')`
     flex-direction: ${props => props.direction || 'row'};
+    margin: 10px;
   `}
 `;
 
