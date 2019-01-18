@@ -4,6 +4,7 @@ import PartyContainer from '../containers/PartyContainer';
 import RootPartyContainer from '../containers/RootPartyContainer';
 import Player from '../components/Player';
 import { connectPlayer } from '../services/SpotifyPlaybackService';
+import SpotifyPlaylist from '../components/SpotifyPlaylist/SpotifyPlaylist';
 
 
 class PartyPage extends React.Component {
@@ -65,6 +66,7 @@ class PartyPage extends React.Component {
       <RootPartyContainer>
         <PartyContainer direction='column'>
           <Panel name='Playlist'>
+            <SpotifyPlaylist />
           </Panel>
         </PartyContainer>
         <PartyContainer direction='column'>

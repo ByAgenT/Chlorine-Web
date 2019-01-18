@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const List = () => (
+const List = (props) => (
   <ListContainer>
+    { props.children }
   </ListContainer>
 );
 
