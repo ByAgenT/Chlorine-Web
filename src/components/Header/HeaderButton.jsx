@@ -1,17 +1,6 @@
 import styled from 'styled-components';
+import LinkButton from '../LinkButton';
 
-const HeaderButton = styled.a`
-  color: white;
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin-left: 1rem;
-  margin-right: 1rem;
-
-  text-decoration: none;
-
-  &:hover {
-    color: rgb(29, 185, 84);
-  }
-`;
+const HeaderButton = styled(LinkButton)``;
 
 export default HeaderButton;
