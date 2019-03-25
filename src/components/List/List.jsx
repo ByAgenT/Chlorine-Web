@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const List = (props) => (
-  <ListContainer>
+  <ListContainer className={props.className}>
     { props.children }
   </ListContainer>
 );
