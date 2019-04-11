@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 
-
-const Panel = (props) => (
+const Panel = props => (
   <PanelContainer>
     <PanelHeader>{props.name}</PanelHeader>
-    <PanelBody>{props.children}</PanelBody>
+    <PanelBody className={props.className}>{props.children}</PanelBody>
   </PanelContainer>
 );
 
@@ -16,7 +15,7 @@ const PanelContainer = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background: #111111
+  background: #111111;
 `;
 
 const PanelBody = styled.div`
@@ -31,7 +30,7 @@ const PanelBody = styled.div`
   ${breakpoint('desktop')`
     min-height: 7rem;
   `}
-`;  
+`;
 
 const PanelHeader = styled.div`
   background-color: #292929;

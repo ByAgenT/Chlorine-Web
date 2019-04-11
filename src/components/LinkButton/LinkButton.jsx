@@ -9,6 +9,7 @@ const LinkButton = styled.a`
   margin-right: 1rem;
 
   text-decoration: none;
+  text-align: center;
 
   &:hover {
     color: rgb(29, 185, 84);
