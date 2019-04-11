@@ -8,7 +8,7 @@ const PartyContainer = styled.div`
 
   ${breakpoint('mobile')`
     flex-direction: column;
-  `} 
+  `}
 
   ${breakpoint('desktop')`
     flex-direction: ${props => props.direction || 'row'};

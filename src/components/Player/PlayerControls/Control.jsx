@@ -5,7 +5,7 @@ const Control = styled.div`
   border: none;
   border-style: none;
   background-size: cover;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
 
   ${breakpoint('desktop')`
     width: 52px;

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 const Brand = styled.span`
   padding: 0;
   margin: 0;
@@ -9,7 +8,6 @@ const Brand = styled.span`
   font-size: 1.8rem;
   font-weight: 600;
   color: white;
-  
 `;
 
 export default Brand;

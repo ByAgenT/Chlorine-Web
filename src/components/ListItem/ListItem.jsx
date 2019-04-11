@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 const ListItem = styled.div`
   display: flex;
   min-height: 3rem;

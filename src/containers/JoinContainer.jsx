@@ -2,15 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 
-
 const JoinContainer = props => (
   <JoinOuterContainer>
-    <JoinInnerContainer>
-      {props.children}
-    </JoinInnerContainer>
+    <JoinInnerContainer>{props.children}</JoinInnerContainer>
   </JoinOuterContainer>
 );
-
 
 const JoinOuterContainer = styled.div`
   display: flex;
@@ -19,7 +15,7 @@ const JoinOuterContainer = styled.div`
 
   ${breakpoint('mobile')`
     flex-direction: column;
-  `} 
+  `}
 
   ${breakpoint('desktop')`
     flex-direction: ${props => props.direction || 'row'};
@@ -33,9 +29,6 @@ const JoinInnerContainer = styled.div`
   ${breakpoint('desktop')`
     min-width: 35rem;
   `}
-
 `;
 
-
 export default JoinContainer;
-

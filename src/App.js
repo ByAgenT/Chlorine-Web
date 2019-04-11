@@ -5,7 +5,6 @@ import AppStyle from './globalStyle';
 import JoinPage from './views/JoinPage';
 import PartyPage from './views/PartyPage';
 
-
 class App extends Component {
   render() {
     return (
@@ -14,7 +13,7 @@ class App extends Component {
           <Header />
           <Route path="/" exact component={PartyPage} />
           <Route path="/join/" exact component={JoinPage} />
-          <AppStyle/>
+          <AppStyle />
         </div>
       </Router>
     );

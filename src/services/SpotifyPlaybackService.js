@@ -1,10 +1,10 @@
-
-
 function connectPlayer(token) {
-  if(window.Spotify) {
+  if (window.Spotify) {
     let player = new window.Spotify.Player({
       name: 'Chlorine',
-      getOAuthToken: cb => { cb(token); },
+      getOAuthToken: cb => {
+        cb(token);
+      }
     });
     return new SpotifyPlayer(player);
   }
@@ -16,25 +16,25 @@ class SpotifyPlayer {
   }
 
   async connect() {
-    if(this.player !== undefined) {
+    if (this.player !== undefined) {
       this.player.connect();
     }
   }
-  
+
   async resume() {
-    if(this.player !== undefined) {
+    if (this.player !== undefined) {
       this.player.resume();
     }
   }
 
   async pause() {
-    if(this.player !== undefined) {
+    if (this.player !== undefined) {
       this.player.pause();
     }
   }
 
   async previousTrack() {
-    if(this.player !== undefined) {
+    if (this.player !== undefined) {
       this.player.previousTrack();
     }
   }

@@ -15,9 +15,8 @@ const SpotifyPlaylist = () => (
       <LinkButton>Add Songs</LinkButton>
       <LinkButton>Shuffle</LinkButton>
     </PlaylistBottomBar>
-  </SpotifyPlaylistContainer>  
+  </SpotifyPlaylistContainer>
 );
-
 
 const SpotifyPlaylistContainer = styled.div`
   display: flex;
@@ -41,6 +40,5 @@ const PlaylistList = styled(List)`
   overflow-y: scroll;
   max-height: 50em;
 `;
-
 
 export default SpotifyPlaylist;

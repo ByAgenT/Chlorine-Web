@@ -6,11 +6,11 @@ function toTrackTime(milliseconds) {
   return `${date.getMinutes()}:${date.getSeconds()}`;
 }
 
-const SongLine = (props) => (
+const SongLine = props => (
   <SongLineContainer>
     <SongTime>{toTrackTime(props.now)}</SongTime>
     <SongLineTotal>
-      <SongLineFg progress={(props.now /props.duration) * 100}/>
+      <SongLineFg progress={(props.now / props.duration) * 100} />
     </SongLineTotal>
     <SongTime>{toTrackTime(props.duration)}</SongTime>
   </SongLineContainer>
@@ -40,8 +40,8 @@ const SongLineFg = styled.div`
   background-color: white;
   height: 5px;
   border-radius: 0.3em;
-  width: ${(props) => {
-    if(props.progress) {
+  width: ${props => {
+    if (props.progress) {
       return `${props.progress}%`;
     }
     return 0;

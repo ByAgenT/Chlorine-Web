@@ -15,7 +15,6 @@ const Header = () => (
   </HeaderContainer>
 );
 
-
 const HeaderContainer = styled.header`
   background-color: black;
   width: 100%;

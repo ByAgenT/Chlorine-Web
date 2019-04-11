@@ -3,11 +3,10 @@ import styled from 'styled-components';
 
 import ListItem from '../ListItem';
 
-
 const TrackListItem = () => (
   <TrackListItemContainer>
     <TrackListItemInnerContainer>
-      <TrackImage src="https://i.scdn.co/image/5a73a056d0af707b4119a883d87285feda543fbb"/>
+      <TrackImage src="https://i.scdn.co/image/5a73a056d0af707b4119a883d87285feda543fbb" />
       <TrackDescriptionContainer>
         <TrackTitle>Song of the Pidors</TrackTitle>
         <TrackArtist>Various Artists</TrackArtist>
@@ -16,7 +15,6 @@ const TrackListItem = () => (
     <TrackDuration>03:10</TrackDuration>
   </TrackListItemContainer>
 );
-
 
 const TrackListItemContainer = styled(ListItem)`
   min-height: 4rem;
