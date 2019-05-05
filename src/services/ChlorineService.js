@@ -23,7 +23,7 @@ async function getMemberInfo() {
 }
 
 async function getRoomMembers() {
-  const response = await fetch('api/room/member', {
+  const response = await fetch('api/room/members', {
     credentials: 'include'
   });
 
