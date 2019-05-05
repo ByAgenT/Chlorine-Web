@@ -8,6 +8,7 @@ const Brand = styled.span`
   font-size: 1.8rem;
   font-weight: 600;
   color: white;
+  user-select: none;
 `;
 
 export default Brand;

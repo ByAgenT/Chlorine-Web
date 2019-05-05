@@ -1,9 +1,33 @@
-function joinRoom(roomID, name) {
-  return fetch('/member', {
+async function joinRoom(roomID, name) {
+  return await fetch('/member', {
     method: 'POST',
     credentials: 'include',
     body: JSON.stringify({ name: name, room_id: Number(roomID) })
   });
 }
 
-export { joinRoom };
+async function getToken() {
+  const response = await fetch('/token', {
+    credentials: 'include'
+  });
+
+  return response.json();
+}
+
+async function getMemberInfo() {
+  const response = await fetch('/member', {
+    credentials: 'include'
+  });
+
+  return response.json();
+}
+
+async function getRoomMembers() {
+  const response = await fetch('/room/member', {
+    credentials: 'include'
+  });
+
+  return response.json();
+}
+
+export { joinRoom, getToken, getMemberInfo ,getRoomMembers };

@@ -1,17 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import Brand from './Brand';
 import HeaderButton from './HeaderButton';
 import HeaderMenu from './HeaderMenu';
+import UserInfo from './UserInfo';
 
-const Header = () => (
+
+const Header = ({ member }) => (
   <HeaderContainer>
     <Brand>CHLORINE</Brand>
-    <HeaderMenu>
-      <HeaderButton href="/login">Create</HeaderButton>
-      <HeaderButton href="/join">Join</HeaderButton>
-    </HeaderMenu>
+    {member ? (
+      <UserInfo name={member.name} />
+    ) : (
+      <HeaderMenu>
+        <HeaderButton href="/login">Create</HeaderButton>
+        <HeaderButton href="/join">Join</HeaderButton>
+      </HeaderMenu>
+    )}
   </HeaderContainer>
 );
 

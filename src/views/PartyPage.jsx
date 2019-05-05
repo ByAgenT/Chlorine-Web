@@ -1,18 +1,67 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import Panel from '../components/Panel';
+import Player from '../components/Player';
+import SpotifyPlaylist from '../components/SpotifyPlaylist/SpotifyPlaylist';
 import PartyContainer from '../containers/PartyContainer';
 import RootPartyContainer from '../containers/RootPartyContainer';
-import Player from '../components/Player';
+import List from '../components/List';
+import ListItem from '../components/ListItem';
+import { getToken, getRoomMembers } from '../services/ChlorineService';
 import { connectPlayer } from '../services/SpotifyPlaybackService';
-import SpotifyPlaylist from '../components/SpotifyPlaylist/SpotifyPlaylist';
+
+const PartyPage = () => {
+  const player = useSpotifyPlayer();
+  const members = useMembersList();
+
+  return (
+    <RootPartyContainer>
+      <PartyContainer direction="column">
+        <Panel name="Playlist">
+          <SpotifyPlaylist />
+        </Panel>
+      </PartyContainer>
+      <PartyContainer direction="column">
+        <Panel name="Members">
+          <List>
+            {members.map(member => {
+              return <ListItem>{member.name}</ListItem>;
+            })}
+          </List>
+        </Panel>
+        <Panel name="Player">
+          <Player player={player} />
+        </Panel>
+      </PartyContainer>
+    </RootPartyContainer>
+  );
+};
+
+function useMembersList() {
+  const [members, setMembers] = useState([]);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        const members = await getRoomMembers();
+        setMembers(members);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  return members;
+}
 
 function useSpotifyPlayer() {
   const [player, setPlayer] = useState(null);
 
   useEffect(() => {
     const getSpotifyToken = async function() {
-      const response = await fetch('/token');
-      return response.json();
+      return await getToken();
     };
 
     async function getSpotifyPlayer(token) {
@@ -42,24 +91,4 @@ function useSpotifyPlayer() {
   return player;
 }
 
-const PartyPage = () => {
-  const player = useSpotifyPlayer();
-
-  return (
-    <RootPartyContainer>
-      <PartyContainer direction="column">
-        <Panel name="Playlist">
-          <SpotifyPlaylist />
-        </Panel>
-      </PartyContainer>
-      <PartyContainer direction="column">
-        <Panel name="Members" />
-        <Panel name="Player">
-          <Player player={player} />
-        </Panel>
-      </PartyContainer>
-    </RootPartyContainer>
-  );
-};
-
-export default PartyPage;
+export default withRouter(PartyPage);
