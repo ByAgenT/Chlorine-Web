@@ -1,5 +1,5 @@
 async function joinRoom(roomID, name) {
-  return await fetch('/member', {
+  return await fetch('api/member', {
     method: 'POST',
     credentials: 'include',
     body: JSON.stringify({ name: name, room_id: Number(roomID) })
@@ -7,7 +7,7 @@ async function joinRoom(roomID, name) {
 }
 
 async function getToken() {
-  const response = await fetch('/token', {
+  const response = await fetch('api/token', {
     credentials: 'include'
   });
 
@@ -15,7 +15,7 @@ async function getToken() {
 }
 
 async function getMemberInfo() {
-  const response = await fetch('/member', {
+  const response = await fetch('api/member', {
     credentials: 'include'
   });
 
@@ -23,7 +23,7 @@ async function getMemberInfo() {
 }
 
 async function getRoomMembers() {
-  const response = await fetch('/room/member', {
+  const response = await fetch('api/room/member', {
     credentials: 'include'
   });
 
