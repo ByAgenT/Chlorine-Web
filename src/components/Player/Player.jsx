@@ -8,35 +8,38 @@ import ControlContainer from './ControlContainer';
 import SongLine from './PlayerControls/SongLine';
 import breakpoint from 'styled-components-breakpoint';
 
-const Player = props => (
+const Player = ({ player, playback }) => (
   <PlayerContainer>
-    <TrackCover src="https://i.scdn.co/image/d0186ad64df7d6fc5f65c20c7d16f4279ffeb815" />
+    <TrackCover src={playback.albumCoverURL} />
     <ControlContainer>
       <SongTitle>
-        <span>The Killers</span>
+        <span>{playback.artistTitle}</span>
         {' – '}
-        <span>Mr. Brightside</span>
+        <span>{playback.songTitle}</span>
       </SongTitle>
-      <SongLine duration={222200} now={130000} />
+      <SongLine
+        duration={playback.duration}
+        now={playback.now}
+      />
       <ButtonsContainer>
         <BackControl
           onClick={() => {
-            props.player.previousTrack();
+            player.previousTrack();
           }}
         />
         <PlayControl
           onClick={() => {
-            props.player.resume();
+            player.resume();
           }}
         />
         <PauseControl
           onClick={() => {
-            props.player.pause();
+            player.pause();
           }}
         />
         <NextControl
           onClick={() => {
-            props.player.previousTrack();
+            player.nextTrack();
           }}
         />
       </ButtonsContainer>
