@@ -1,8 +1,7 @@
 import debounce from 'lodash/debounce';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import List from '../../components/List';
-import ListItem from '../../components/ListItem';
+import MembersList from '../../components/MembersList';
 import Modal from '../../components/Modal';
 import Panel from '../../components/Panel';
 import Player from '../../components/Player';
@@ -40,17 +39,13 @@ const PartyPage = () => {
       </PartyContainer>
       <PartyContainer direction="column">
         <Panel name="Members">
-          <List>
-            {members.map(member => {
-              return <ListItem key={member.id}>{member.name}</ListItem>;
-            })}
-          </List>
+          <MembersList members={members}/>
         </Panel>
         <Panel name="Player">
           <Player player={player} playback={playback} />
         </Panel>
       </PartyContainer>
-      <Modal display={isModalShowed}>
+      <Modal display={[isModalShowed, setModalShowed]}>
         <h1>Search Songs</h1>
         <TextInput placeholder="Enter Track" onChange={onSearchModalChange} />
         <SongSearchResultList songs={searchResult} />

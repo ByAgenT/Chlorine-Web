@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import LinkButton from '../LinkButton';
 
 const Modal = ({ display, children, className }) => {
-  display = display ? 'block' : 'none';
+  let [displayStatus, setDisplayStatus] = display;
+  displayStatus = displayStatus ? 'block' : 'none';
   return (
-    <ModalContainer display={display}>
+    <ModalContainer display={displayStatus}>
       <ModalContent className={className}>
         {children}
+        <ModalBottomBar>
+          <LinkButton onClick={() => setDisplayStatus(false)}>Exit</LinkButton>
+        </ModalBottomBar>
       </ModalContent>
     </ModalContainer>
   );
@@ -32,6 +37,19 @@ const ModalContent = styled.div`
   padding: 20px;
   border: 1px solid #888;
   width: 40%; /* Could be more or less, depending on screen size */
+
+  & > ${LinkButton} {
+    margin: 0;
+    padding-top: 0.5em;
+  }
+`;
+
+const ModalBottomBar = styled.div`
+  display: flex;
+  height: 2.5rem;
+  color: white;
+  background-color: #292929;
+  align-items: center;
 `;
 
 export default Modal;
