@@ -5,14 +5,14 @@ import List from '../List';
 import TrackListItem from '../TrackListItem';
 import LinkButton from '../LinkButton';
 
-const SpotifyPlaylist = () => (
+const SpotifyPlaylist = ({onAddSongClick}) => (
   <SpotifyPlaylistContainer>
     <PlaylistList>
       <TrackListItem />
       <TrackListItem />
     </PlaylistList>
     <PlaylistBottomBar>
-      <LinkButton>Add Songs</LinkButton>
+      <LinkButton onClick={onAddSongClick}>Add Songs</LinkButton>
       <LinkButton>Shuffle</LinkButton>
     </PlaylistBottomBar>
   </SpotifyPlaylistContainer>

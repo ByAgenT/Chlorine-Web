@@ -1,1 +1,1 @@
-DEVELOPMENT_PROXY=http://localhost:8080 npm start
+DEVELOPMENT_PROXY=http://localhost yarn start

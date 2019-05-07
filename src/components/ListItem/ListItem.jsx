@@ -8,6 +8,10 @@ const ListItem = styled.div`
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
+
+  &:hover {
+    background-color: #222326;
+  }
 `;
 
 export default ListItem;

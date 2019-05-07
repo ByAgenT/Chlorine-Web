@@ -30,4 +30,16 @@ async function getRoomMembers() {
   return response.json();
 }
 
-export { joinRoom, getToken, getMemberInfo ,getRoomMembers };
+async function searchTracks(query) {
+  const url = new URL('/api/search', window.location.href);
+  const params = { q: query };
+  url.search = new URLSearchParams(params);
+
+  const response = await fetch(url, {
+    credentials: 'include'
+  });
+
+  return response.json();
+}
+
+export { joinRoom, getToken, getMemberInfo, getRoomMembers, searchTracks };
