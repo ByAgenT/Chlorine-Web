@@ -3,16 +3,16 @@ import styled from 'styled-components';
 
 import ListItem from '../ListItem';
 
-const TrackListItem = () => (
+const TrackListItem = ({img, title, artist, duration}) => (
   <TrackListItemContainer>
     <TrackListItemInnerContainer>
-      <TrackImage src="https://i.scdn.co/image/5a73a056d0af707b4119a883d87285feda543fbb" />
+      <TrackImage src={img} />
       <TrackDescriptionContainer>
-        <TrackTitle>Song of the Pidors</TrackTitle>
-        <TrackArtist>Various Artists</TrackArtist>
+        <TrackTitle>{title}</TrackTitle>
+        <TrackArtist>{artist}</TrackArtist>
       </TrackDescriptionContainer>
     </TrackListItemInnerContainer>
-    <TrackDuration>03:10</TrackDuration>
+    <TrackDuration>{duration}</TrackDuration>
   </TrackListItemContainer>
 );
 

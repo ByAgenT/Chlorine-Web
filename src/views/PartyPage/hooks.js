@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
   getPlaybackInformation,
   getRoomMembers,
   getToken,
-  searchTracks
+  searchTracks,
+  retrieveRoomSongs,
+  retrieveRoomsSongsFromSpotify,
+  addSong,
+  updateSong
 } from '../../services/ChlorineService';
 import { connectPlayer } from '../../services/SpotifyPlaybackService';
 
@@ -111,7 +115,6 @@ function usePlaybackInformation(player) {
             )[0].url
             : ''
         };
-        console.log(playbackInfo);
         setPlaybackInformation(playbackInfo);
       } catch (error) {
         console.error(error);
@@ -124,7 +127,25 @@ function usePlaybackInformation(player) {
   useEffect(
     () => {
       if (player !== null) {
-        player.onPlayerStateChanged(state => { /* TODO: add real-time playback update. */ });
+        player.onPlayerStateChanged(state => {
+          if (state) {
+            if (state.track_window) {
+              const currentTrack = state.track_window.current_track;
+              const playbackInfo = {
+                now: state.position,
+                duration: state.duration,
+                artistTitle: currentTrack.artists
+                  .map(artist => artist.name)
+                  .join(', '),
+                songTitle: currentTrack.name,
+                albumCoverURL: currentTrack.album.images.filter(
+                  image => image.width > 200 && image.width < 400
+                )[0].url
+              };
+              setPlaybackInformation(playbackInfo);
+            }
+          }
+        });
       }
     },
     [player]
@@ -133,9 +154,76 @@ function usePlaybackInformation(player) {
   return playbackInformation;
 }
 
+function useSpotifyPlaylist() {
+  const [playlist, setPlaylist] = useState([]);
+  const [spotifyTrackInfo, setSpotifyTrackInfo] = useState([]);
+
+  const fetchPlaylist = useCallback(async function() {
+    try {
+      const fetchedSongs = await retrieveRoomSongs();
+      console.log(fetchedSongs);
+      setPlaylist(fetchedSongs);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  const fetchSpotifyTrackInfo = useCallback(async function() {
+    try {
+      const fetchedInfo = await retrieveRoomsSongsFromSpotify();
+      setSpotifyTrackInfo(fetchedInfo);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  async function appendSong(spotifyId) {
+    fetchPlaylist();
+    fetchSpotifyTrackInfo();
+    const lastSong = playlist.filter(
+      song => song.next_song_id === undefined || song.next_song_id === null
+    );
+    if (lastSong[0]) {
+      try {
+        const newSong = await addSong(spotifyId, lastSong[0].id, null);
+        console.log('perform updating');
+        const updateResponse = await updateSong(lastSong[0].id, {
+          spotifyId: lastSong[0].spotify_id,
+          prevSongId: lastSong[0].previous_song_id,
+          nextSongId: newSong.id
+        });
+        console.log('Updated song: ');
+        console.log(updateResponse);
+        fetchPlaylist();
+        fetchSpotifyTrackInfo();
+        return newSong;
+      } catch (error) {
+        console.error(error);
+        return;
+      }
+    }
+    console.log('add first element');
+    const response = await addSong(spotifyId, null, null);
+    fetchPlaylist();
+    fetchSpotifyTrackInfo();
+    return await response.json();
+  }
+
+  useEffect(
+    () => {
+      fetchPlaylist();
+      fetchSpotifyTrackInfo();
+    },
+    [fetchPlaylist, fetchSpotifyTrackInfo]
+  );
+
+  return { playlist, spotifyTrackInfo, fetchPlaylist, appendSong };
+}
+
 export {
   useMembersList,
   useSpotifyPlayer,
   useSongSearch,
-  usePlaybackInformation
+  usePlaybackInformation,
+  useSpotifyPlaylist
 };

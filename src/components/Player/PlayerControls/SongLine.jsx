@@ -35,17 +35,14 @@ const SongLineTotal = styled.div`
   border-radius: 0.3em;
 `;
 
-const SongLineFg = styled.div`
+const SongLineFg = styled.div.attrs(props => ({
+  width: props.progress ? `${props.progress}%` : 0
+}))`
   position: inherit;
   background-color: white;
   height: 5px;
   border-radius: 0.3em;
-  width: ${props => {
-    if (props.progress) {
-      return `${props.progress}%`;
-    }
-    return 0;
-  }};
+  width: ${props => props.width};
 `;
 
 export default SongLine;

@@ -3,11 +3,19 @@ import styled from 'styled-components';
 
 import LinkButton from '../LinkButton';
 
-const SongSearchResultList = ({ songs }) => (
+const SongSearchResultList = ({ songs, onSongAdd }) => (
   <ListContainer>
     <SongsList>
       {songs.map(song => (
-        <LinkButton>{song.name}</LinkButton>
+        <LinkButton
+          onClick={() => {
+            console.log(`Add ${song.id}`);
+            onSongAdd(song.id);
+          }}
+          key={song.id}
+        >
+          {song.artists.map(artist => artist.name).join(', ')} - {song.name}
+        </LinkButton>
       ))}
     </SongsList>
   </ListContainer>

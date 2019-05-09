@@ -42,14 +42,32 @@ class SpotifyPlayer {
     this.player = player;
   }
 
-  onPlayerStateChanged(callback) {
+  async getCurrentState() {
+    if (this.player !== undefined) {
+      return this.player.getCurrentState();
+    }
+  }
+
+  async onPlayerReady(callback) {
+    if (this.player !== undefined) {
+      this.player.removeListener('ready');
+      this.player.addListener('ready', callback);
+    } else {
+      console.error(
+        'onPlayerReady is not applied to player. Player is not initialized.'
+      );
+    }
+  }
+
+  async onPlayerStateChanged(callback) {
     if (this.player !== undefined) {
       this.player.removeListener('player_state_changed');
       this.player.addListener('player_state_changed', callback);
     } else {
-      console.error('onPlayerStateChanged is not applied to player. Player is not initialized');
+      console.error(
+        'onPlayerStateChanged is not applied to player. Player is not initialized'
+      );
     }
-    
   }
 
   async connect() {

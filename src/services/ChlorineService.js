@@ -50,11 +50,84 @@ async function searchTracks(query) {
   return response.json();
 }
 
+async function getDevicesInformation() {
+  const response = await fetch('api/me/player/devices', {
+    credentials: 'include'
+  });
+
+  return response.json();
+}
+
+async function transferPlayback(deviceId, play) {
+  const response = await fetch('api/me/player/', {
+    method: 'PUT',
+    credentials: 'include',
+    body: JSON.stringify({
+      device_id: deviceId,
+      play: play
+    })
+  });
+
+  return response.json();
+}
+
+async function retrieveRoomSongs() {
+  const response = await fetch('api/room/songs', {
+    credentials: 'include'
+  });
+
+  return response.json();
+}
+
+async function retrieveRoomsSongsFromSpotify() {
+  const response = await fetch('api/room/songs/spotify', {
+    credentials: 'include'
+  });
+
+  return response.json();
+}
+
+async function addSong(spotifyId, prevSongId, nextSongId) {
+  console.log(`adding song ${spotifyId}, ${prevSongId}, ${nextSongId}`);
+  const response = await fetch('api/room/songs', {
+    credentials: 'include',
+    method: 'POST',
+    body: JSON.stringify({
+      spotify_id: spotifyId,
+      previous_song_id: prevSongId,
+      next_song_id: nextSongId
+    })
+  });
+  return response.json();
+}
+
+async function updateSong(song_id, values) {
+  console.log('updating song');
+  const response = await fetch('api/room/songs', {
+    credentials: 'include',
+    method: 'PUT',
+    body: JSON.stringify({
+      id: song_id,
+      spotify_id: values.spotifyId,
+      previous_song_id: values.prevSongId,
+      next_song_id: values.nextSongId
+    })
+  });
+
+  return response.json();
+}
+
 export {
   joinRoom,
   getToken,
   getMemberInfo,
   getRoomMembers,
   searchTracks,
-  getPlaybackInformation
+  getPlaybackInformation,
+  getDevicesInformation,
+  transferPlayback,
+  retrieveRoomSongs,
+  retrieveRoomsSongsFromSpotify,
+  addSong,
+  updateSong
 };

@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import MembersList from '../../components/MembersList';
 import Modal from '../../components/Modal';
@@ -10,7 +10,17 @@ import SpotifyPlaylist from '../../components/SpotifyPlaylist/SpotifyPlaylist';
 import TextInput from '../../components/TextInput';
 import PartyContainer from '../../containers/PartyContainer';
 import RootPartyContainer from '../../containers/RootPartyContainer';
-import { useMembersList, usePlaybackInformation, useSongSearch, useSpotifyPlayer } from './hooks';
+import {
+  getDevicesInformation,
+  transferPlayback
+} from '../../services/ChlorineService';
+import {
+  useMembersList,
+  usePlaybackInformation,
+  useSongSearch,
+  useSpotifyPlayer,
+  useSpotifyPlaylist
+} from './hooks';
 
 const PartyPage = () => {
   const player = useSpotifyPlayer();
@@ -18,6 +28,9 @@ const PartyPage = () => {
   const playback = usePlaybackInformation(player);
   const [isModalShowed, setModalShowed] = useState(false);
   const { searchResult, setSongQuery } = useSongSearch();
+  const { spotifyTrackInfo, appendSong } = useSpotifyPlaylist();
+
+  useEffect(claimPlayback);
 
   const updateSongQuery = debounce(event => {
     setSongQuery(event.target.value);
@@ -28,18 +41,36 @@ const PartyPage = () => {
     updateSongQuery(event);
   }
 
+  function claimPlayback() {
+    if (player) {
+      player.onPlayerReady(async () => {
+        try {
+          const devices = await getDevicesInformation();
+          const chlorine = devices.filter(device => device.name === 'Chlorine');
+          if (chlorine[0] !== undefined) {
+            console.log(`transferring to ${chlorine[0].id}`);
+            await transferPlayback(chlorine[0].id, true);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    }
+  }
+
   return (
     <RootPartyContainer>
       <PartyContainer direction="column">
         <Panel name="Playlist">
           <SpotifyPlaylist
             onAddSongClick={() => setModalShowed(!isModalShowed)}
+            playlist={spotifyTrackInfo}
           />
         </Panel>
       </PartyContainer>
       <PartyContainer direction="column">
         <Panel name="Members">
-          <MembersList members={members}/>
+          <MembersList members={members} />
         </Panel>
         <Panel name="Player">
           <Player player={player} playback={playback} />
@@ -48,7 +79,7 @@ const PartyPage = () => {
       <Modal display={[isModalShowed, setModalShowed]}>
         <h1>Search Songs</h1>
         <TextInput placeholder="Enter Track" onChange={onSearchModalChange} />
-        <SongSearchResultList songs={searchResult} />
+        <SongSearchResultList onSongAdd={appendSong} songs={searchResult} />
       </Modal>
     </RootPartyContainer>
   );

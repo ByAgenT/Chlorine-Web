@@ -5,11 +5,29 @@ import List from '../List';
 import TrackListItem from '../TrackListItem';
 import LinkButton from '../LinkButton';
 
-const SpotifyPlaylist = ({onAddSongClick}) => (
+function toTrackTime(milliseconds) {
+  let date = new Date(milliseconds);
+  return `${date.getMinutes()}:${date.getSeconds()}`;
+}
+
+const SpotifyPlaylist = ({ onAddSongClick, playlist }) => (
   <SpotifyPlaylistContainer>
     <PlaylistList>
-      <TrackListItem />
-      <TrackListItem />
+      {playlist.map(track => {
+        return (
+          <TrackListItem
+            key={track.id}
+            title={track.name}
+            artist={track.artists.map(artist => artist.name).join(', ')}
+            img={
+              track.album.images.filter(
+                image => image.width > 50 && image.width < 100
+              )[0].url
+            }
+            duration={toTrackTime(track.duration_ms)}
+          />
+        );
+      })}
     </PlaylistList>
     <PlaylistBottomBar>
       <LinkButton onClick={onAddSongClick}>Add Songs</LinkButton>
