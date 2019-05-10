@@ -28,7 +28,12 @@ const PartyPage = () => {
   const playback = usePlaybackInformation(player);
   const [isModalShowed, setModalShowed] = useState(false);
   const { searchResult, setSongQuery } = useSongSearch();
-  const { spotifyTrackInfo, appendSong } = useSpotifyPlaylist();
+  const {
+    spotifyTrackInfo,
+    appendSong,
+    startPlay,
+    doShuffle
+  } = useSpotifyPlaylist();
 
   useEffect(claimPlayback);
 
@@ -64,6 +69,8 @@ const PartyPage = () => {
         <Panel name="Playlist">
           <SpotifyPlaylist
             onAddSongClick={() => setModalShowed(!isModalShowed)}
+            onStartPlay={startPlay}
+            onShuffle={doShuffle}
             playlist={spotifyTrackInfo}
           />
         </Panel>

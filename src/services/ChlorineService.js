@@ -117,6 +117,19 @@ async function updateSong(song_id, values) {
   return response.json();
 }
 
+async function play(spotify_uris) {
+  console.log('will play', spotify_uris);
+  const response = await fetch('api/play', {
+    credentials: 'include',
+    method: 'POST',
+    body: JSON.stringify({
+      uris: spotify_uris
+    })
+  });
+
+  return response.json();
+}
+
 export {
   joinRoom,
   getToken,
@@ -129,5 +142,6 @@ export {
   retrieveRoomSongs,
   retrieveRoomsSongsFromSpotify,
   addSong,
-  updateSong
+  updateSong,
+  play
 };

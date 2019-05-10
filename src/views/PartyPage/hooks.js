@@ -7,9 +7,11 @@ import {
   retrieveRoomSongs,
   retrieveRoomsSongsFromSpotify,
   addSong,
-  updateSong
+  updateSong,
+  play
 } from '../../services/ChlorineService';
 import { connectPlayer } from '../../services/SpotifyPlaybackService';
+import shuffle from 'lodash/shuffle';
 
 function useMembersList() {
   const [members, setMembers] = useState([]);
@@ -209,6 +211,19 @@ function useSpotifyPlaylist() {
     return await response.json();
   }
 
+  async function startPlay() {
+    try {
+      await play(spotifyTrackInfo.map(track => track.uri));
+    } catch (error) {
+      console.error('error while playing');
+      console.error(error);
+    }
+  }
+
+  async function doShuffle() {
+    setSpotifyTrackInfo(shuffle(spotifyTrackInfo));
+  }
+
   useEffect(
     () => {
       fetchPlaylist();
@@ -217,7 +232,7 @@ function useSpotifyPlaylist() {
     [fetchPlaylist, fetchSpotifyTrackInfo]
   );
 
-  return { playlist, spotifyTrackInfo, fetchPlaylist, appendSong };
+  return { playlist, spotifyTrackInfo, fetchPlaylist, appendSong, startPlay, doShuffle };
 }
 
 export {

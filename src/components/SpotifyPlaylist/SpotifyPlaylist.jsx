@@ -10,28 +10,31 @@ function toTrackTime(milliseconds) {
   return `${date.getMinutes()}:${date.getSeconds()}`;
 }
 
-const SpotifyPlaylist = ({ onAddSongClick, playlist }) => (
+const SpotifyPlaylist = ({ onAddSongClick, playlist, onStartPlay, onShuffle }) => (
   <SpotifyPlaylistContainer>
     <PlaylistList>
-      {playlist.map(track => {
-        return (
-          <TrackListItem
-            key={track.id}
-            title={track.name}
-            artist={track.artists.map(artist => artist.name).join(', ')}
-            img={
-              track.album.images.filter(
-                image => image.width > 50 && image.width < 100
-              )[0].url
-            }
-            duration={toTrackTime(track.duration_ms)}
-          />
-        );
-      })}
+      {playlist
+        ? playlist.map(track => {
+          return (
+            <TrackListItem
+              key={track.id}
+              title={track.name}
+              artist={track.artists.map(artist => artist.name).join(', ')}
+              img={
+                track.album.images.filter(
+                  image => image.width > 50 && image.width < 100
+                )[0].url
+              }
+              duration={toTrackTime(track.duration_ms)}
+            />
+          );
+        })
+        : ''}
     </PlaylistList>
     <PlaylistBottomBar>
       <LinkButton onClick={onAddSongClick}>Add Songs</LinkButton>
-      <LinkButton>Shuffle</LinkButton>
+      <LinkButton onClick={onShuffle}>Shuffle</LinkButton>
+      <LinkButton onClick={onStartPlay}>Start Play</LinkButton>
     </PlaylistBottomBar>
   </SpotifyPlaylistContainer>
 );
