@@ -16,6 +16,15 @@ import shuffle from 'lodash/shuffle';
 function useMembersList() {
   const [members, setMembers] = useState([]);
 
+  async function updateMembers() {
+    try {
+      const members = await getRoomMembers();
+      setMembers(members);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     async function prepare() {
       try {
@@ -29,7 +38,7 @@ function useMembersList() {
     prepare();
   }, []);
 
-  return members;
+  return [members, updateMembers];
 }
 
 function useSpotifyPlayer() {

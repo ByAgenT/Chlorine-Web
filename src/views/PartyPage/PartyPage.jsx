@@ -24,7 +24,7 @@ import {
 
 const PartyPage = () => {
   const player = useSpotifyPlayer();
-  const members = useMembersList();
+  const [members, updateMembers] = useMembersList();
   const playback = usePlaybackInformation(player);
   const [isModalShowed, setModalShowed] = useState(false);
   const { searchResult, setSongQuery } = useSongSearch();
@@ -85,7 +85,7 @@ const PartyPage = () => {
       </PartyContainer>
       <PartyContainer direction="column">
         <Panel name="Members">
-          <MembersList members={members} />
+          <MembersList members={members} onUpdate={updateMembers}/>
         </Panel>
         <Panel name="Player">
           <Player player={player} playback={playback} />

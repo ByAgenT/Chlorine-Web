@@ -16,7 +16,7 @@ import {
 } from '../PartyPage/hooks';
 
 const PartyPage = () => {
-  const members = useMembersList();
+  const [members, updateMembers] = useMembersList();
   const [isModalShowed, setModalShowed] = useState(false);
   const { searchResult, setSongQuery } = useSongSearch();
   const { spotifyTrackInfo, appendSong, fetchPlaylist, fetchSpotifyTrackInfo } = useSpotifyPlaylist();
@@ -48,7 +48,7 @@ const PartyPage = () => {
       </PartyContainer>
       <PartyContainer direction="column">
         <Panel name="Members">
-          <MembersList members={members} />
+          <MembersList members={members} onUpdate={updateMembers}/>
         </Panel>
       </PartyContainer>
       <Modal display={[isModalShowed, setModalShowed]}>

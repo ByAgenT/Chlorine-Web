@@ -4,7 +4,7 @@ import ListItem from '../ListItem';
 import List from '../List';
 import LinkButton from '../LinkButton';
 
-const MembersList = ({ members }) => (
+const MembersList = ({ members, onUpdate }) => (
   <MemberListContainer>
     <List>
       {members.map(member => {
@@ -13,7 +13,14 @@ const MembersList = ({ members }) => (
     </List>
     <MemberListBottomBar>
       <RoomButton>Your Room: {members[0] ? members[0].room_id : ''}</RoomButton>
-      <LinkButton>Settings</LinkButton>
+      <LinkButton
+        onClick={() => {
+          alert('In development');
+        }}
+      >
+        Settings
+      </LinkButton>
+      <LinkButton onClick={onUpdate}>Refresh</LinkButton>
     </MemberListBottomBar>
   </MemberListContainer>
 );
