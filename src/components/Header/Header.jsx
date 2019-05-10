@@ -1,16 +1,38 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Brand from './Brand';
 import HeaderButton from './HeaderButton';
 import HeaderMenu from './HeaderMenu';
 import UserInfo from './UserInfo';
 
-
-const Header = ({ member }) => (
+const Header = ({ member, refreshMember, history }) => (
   <HeaderContainer>
     <Brand>CHLORINE</Brand>
     {member ? (
-      <UserInfo name={member.name} />
+      <div>
+        <UserInfo name={member.name} />
+        <HeaderButton
+          onClick={() => {
+            function deleteAllCookies() {
+              var cookies = document.cookie.split(';');
+
+              for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                var eqPos = cookie.indexOf('=');
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                document.cookie =
+                  name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+              }
+            }
+            deleteAllCookies();
+            refreshMember();
+            history.push('/');
+          }}
+        >
+          Logout
+        </HeaderButton>
+      </div>
     ) : (
       <HeaderMenu>
         <HeaderButton href="/login">Create</HeaderButton>
@@ -29,4 +51,4 @@ const HeaderContainer = styled.header`
   align-items: center;
 `;
 
-export default Header;
+export default withRouter(Header);

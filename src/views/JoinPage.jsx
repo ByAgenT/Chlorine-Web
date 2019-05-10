@@ -30,7 +30,7 @@ const JoinPage = ({ history }) => {
           onClick={async () => {
             try {
               await joinRoom(roomID, name);
-              history.push('/');
+              history.push('/viewer');
             } catch (error) {
               console.error(error);
             }

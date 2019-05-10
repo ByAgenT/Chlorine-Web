@@ -12,10 +12,17 @@ const MembersList = ({ members }) => (
       })}
     </List>
     <MemberListBottomBar>
+      <RoomButton>Your Room: {members[0] ? members[0].room_id : ''}</RoomButton>
       <LinkButton>Settings</LinkButton>
     </MemberListBottomBar>
   </MemberListContainer>
 );
+
+const RoomButton = styled(LinkButton)`
+  &:hover {
+    color: white;
+  }
+`;
 
 const MembersListItem = styled(ListItem)`
   font-size: 1.5em;

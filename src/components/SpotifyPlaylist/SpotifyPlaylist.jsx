@@ -10,7 +10,7 @@ function toTrackTime(milliseconds) {
   return `${date.getMinutes()}:${date.getSeconds()}`;
 }
 
-const SpotifyPlaylist = ({ onAddSongClick, playlist, onStartPlay, onShuffle }) => (
+const SpotifyPlaylist = ({ onAddSongClick, playlist, onStartPlay, onShuffle, onUpdate }) => (
   <SpotifyPlaylistContainer>
     <PlaylistList>
       {playlist
@@ -35,6 +35,7 @@ const SpotifyPlaylist = ({ onAddSongClick, playlist, onStartPlay, onShuffle }) =
       <LinkButton onClick={onAddSongClick}>Add Songs</LinkButton>
       <LinkButton onClick={onShuffle}>Shuffle</LinkButton>
       <LinkButton onClick={onStartPlay}>Start Play</LinkButton>
+      <LinkButton onClick={onUpdate}>Refresh</LinkButton>
     </PlaylistBottomBar>
   </SpotifyPlaylistContainer>
 );

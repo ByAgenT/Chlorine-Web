@@ -232,7 +232,15 @@ function useSpotifyPlaylist() {
     [fetchPlaylist, fetchSpotifyTrackInfo]
   );
 
-  return { playlist, spotifyTrackInfo, fetchPlaylist, appendSong, startPlay, doShuffle };
+  return {
+    playlist,
+    spotifyTrackInfo,
+    fetchPlaylist,
+    fetchSpotifyTrackInfo,
+    appendSong,
+    startPlay,
+    doShuffle
+  };
 }
 
 export {
