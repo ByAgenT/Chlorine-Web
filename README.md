@@ -1,3 +1,13 @@
+# Chlorine
+
+Chlorine is a party room application for Spotify. It allows you to create room with your Spotify account and let other people connect to this room and add music into the party playlist.
+
+This repository contains client written in React using React Hooks.
+
+Chlorine project was a part of my coursework.
+
+# React Readme
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
